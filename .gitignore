@@ -1,0 +1,23 @@
+# Secrets — never committed
+.env
+.env.*
+!.env.example
+
+# Local data (financial DB) — never committed
+data/
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
+# Logs
+logs/
+*.log
+
+# Node / build
+node_modules/
+dist/
+
+# OS
+.DS_Store

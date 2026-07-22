@@ -1,0 +1,325 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "./shadcn-tailwind.css";
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/heebo";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-heading: var(--font-sans);
+    /* Geist first so every digit, currency figure and Latin string renders in
+       the same engineered grotesque; Hebrew glyphs fall through to Heebo,
+       whose skeleton and x-height sit naturally next to Geist. */
+    --font-sans: 'Geist Variable', 'Heebo Variable', Arial, sans-serif;
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    /* Financial gain/loss. Same tokens the income/expense series use, so a
+       figure and its bar always agree. */
+    --color-positive: var(--positive);
+    --color-negative: var(--negative);
+    /* Amber dark enough to be READ as text. --primary is tuned to be a vivid
+       FILL; at that lightness it is only ~3:1 on white, which fails for text. */
+    --color-brand-ink: var(--brand-ink);
+    /* Warning stays in the amber family so it reads as a hotter degree of the
+       brand signal, not a second competing palette. */
+    --color-warn: var(--warn);
+    --color-warn-surface: var(--warn-surface);
+    --color-warn-border: var(--warn-border);
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Instrument identity: cool graphite neutrals carry the chassis, amber is the
+   single hot signal (actions, selection, the live pulse). Both themes share
+   the same logic — light is a platinum instrument, dark is the flagship
+   graphite panel — so switching reads as one product under two lights. */
+:root {
+    --background: oklch(0.985 0.002 250);
+    --foreground: oklch(0.185 0.012 258);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.185 0.012 258);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.185 0.012 258);
+    --primary: oklch(0.68 0.185 52);
+    --primary-foreground: oklch(0.23 0.06 45);
+    --secondary: oklch(0.962 0.004 250);
+    --secondary-foreground: oklch(0.185 0.012 258);
+    --muted: oklch(0.962 0.004 250);
+    --muted-foreground: oklch(0.44 0.014 255);
+    --accent: oklch(0.955 0.005 250);
+    --accent-foreground: oklch(0.185 0.012 258);
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: oklch(0.912 0.006 252);
+    --input: oklch(0.912 0.006 252);
+    --ring: oklch(0.68 0.185 52);
+    --brand-ink: oklch(0.49 0.145 47);
+    --warn: oklch(0.5 0.15 70);
+    --warn-surface: oklch(0.97 0.035 80);
+    --warn-border: oklch(0.86 0.09 75);
+    --radius: 0.75rem;
+    --sidebar: oklch(1 0 0);
+    --sidebar-foreground: oklch(0.185 0.012 258);
+    --sidebar-primary: oklch(0.68 0.185 52);
+    --sidebar-primary-foreground: oklch(0.23 0.06 45);
+    --sidebar-accent: oklch(0.958 0.005 250);
+    --sidebar-accent-foreground: oklch(0.185 0.012 258);
+    --sidebar-border: oklch(0.912 0.006 252);
+    --sidebar-ring: oklch(0.68 0.185 52);
+
+    /* One family, not a rainbow: categories are labelled and sorted by size,
+       so they need to be tellable apart, not individually memorable. Kept
+       bright and saturated — an earlier version ran down to L 0.40, which
+       read as mud. Separation now comes from chroma and hue, with lightness
+       still stepping enough to survive greyscale and colour-blindness. */
+    --data-1: oklch(0.72 0.18 62);
+    --data-2: oklch(0.82 0.16 88);
+    --data-3: oklch(0.66 0.19 42);
+    --data-4: oklch(0.76 0.15 104);
+    --data-5: oklch(0.6 0.19 30);
+    --data-6: oklch(0.86 0.14 78);
+    --data-7: oklch(0.68 0.14 50);
+    --data-8: oklch(0.78 0.11 96);
+    /* Income/expense carry FINANCIAL MEANING, so they use the same green/red
+       as every gain/loss figure on the page — a blue income bar next to green
+       income text read as two different things. Both are pulled toward the
+       warm palette (green at hue 150 not 165, red at 30 not 15) so they sit
+       in the same room as the amber signal without losing their meaning. */
+    /* Gain/loss TEXT: dark enough for AA on light surfaces. */
+    --positive: oklch(0.52 0.12 152);
+    --negative: oklch(0.48 0.17 28);
+    /* Gain/loss FILLS (chart bars). Text and large blocks of colour have
+       different jobs: text needs contrast against its background, bars need
+       contrast against EACH OTHER. Red-green is the most common colour
+       blindness, so the bars are separated by lightness (~2:1) rather than
+       hue alone — that also keeps them readable in greyscale. Using the text
+       tokens here would put green and red at nearly identical luminance. */
+    --series-income: oklch(0.66 0.13 154);
+    --series-expenses: oklch(0.5 0.17 28);
+    --series-net: oklch(0.52 0.12 88);
+    --chart-1: var(--data-1);
+    --chart-2: var(--data-2);
+    --chart-3: var(--data-3);
+    --chart-4: var(--data-4);
+    --chart-5: var(--data-5);
+
+    /* Light mode stays PLATINUM. A faint amber breath top-right keeps the
+       brand present; the cool counter-glow keeps the paper from warming up.
+       Colour belongs to the signal, not the chassis. */
+    --glow-1: oklch(0.85 0.08 65 / 0.1);
+    --glow-2: oklch(0.86 0.025 255 / 0.07);
+    --glow-3: oklch(0.88 0.05 80 / 0.05);
+}
+
+.dark {
+    /* Graphite, not navy: chroma stays ≤0.015 so the canvas reads as ink
+       under cool light rather than as a blue brand colour. */
+    --background: oklch(0.141 0.012 255);
+    --foreground: oklch(0.94 0.008 250);
+    --card: oklch(0.181 0.014 254);
+    --popover: oklch(0.2 0.014 254);
+    --popover-foreground: oklch(0.94 0.008 250);
+    --card-foreground: oklch(0.94 0.008 250);
+    --primary: oklch(0.8 0.16 75);
+    --primary-foreground: oklch(0.2 0.05 60);
+    --secondary: oklch(0.235 0.014 252);
+    --secondary-foreground: oklch(0.94 0.008 250);
+    --muted: oklch(0.235 0.014 252);
+    /* L 0.72, not 0.70: the metric wells lift their surface with 3.5% white,
+       and at 0.70 the label text there lands right at the AA line. */
+    --muted-foreground: oklch(0.72 0.016 250);
+    --accent: oklch(0.26 0.02 252);
+    --accent-foreground: oklch(0.94 0.008 250);
+    --destructive: oklch(0.7 0.19 25);
+    --border: oklch(0.92 0.02 250 / 10%);
+    --input: oklch(0.92 0.02 250 / 14%);
+    --ring: oklch(0.8 0.16 75);
+    --brand-ink: oklch(0.83 0.13 74);
+    --warn: oklch(0.85 0.13 82);
+    --warn-surface: oklch(0.25 0.04 70);
+    --warn-border: oklch(0.5 0.09 75);
+    --sidebar: oklch(0.115 0.01 255);
+    --sidebar-foreground: oklch(0.94 0.008 250);
+    --sidebar-primary: oklch(0.8 0.16 75);
+    --sidebar-primary-foreground: oklch(0.2 0.05 60);
+    --sidebar-accent: oklch(0.19 0.014 253);
+    --sidebar-accent-foreground: oklch(0.94 0.008 250);
+    --sidebar-border: oklch(0.92 0.02 250 / 8%);
+    --sidebar-ring: oklch(0.8 0.16 75);
+
+    /* Same single warm ramp, lifted so every step stays legible on graphite.
+       The range is compressed upward (0.84 → 0.55) because dark backgrounds
+       swallow the low end. */
+    --data-1: oklch(0.76 0.14 62);
+    --data-2: oklch(0.84 0.12 84);
+    --data-3: oklch(0.69 0.13 46);
+    --data-4: oklch(0.78 0.09 98);
+    --data-5: oklch(0.62 0.12 36);
+    --data-6: oklch(0.7 0.07 78);
+    --data-7: oklch(0.58 0.1 52);
+    --data-8: oklch(0.55 0.05 90);
+    /* Same warm-leaning green/red, lifted for graphite. */
+    --positive: oklch(0.78 0.14 154);
+    --negative: oklch(0.66 0.17 30);
+    --series-income: oklch(0.82 0.14 154);
+    --series-expenses: oklch(0.6 0.17 28);
+    --series-net: oklch(0.84 0.12 90);
+
+    /* The amber bloom top-right is the one warm light in the room; the cool
+       steel breath on the opposite side is what keeps the canvas reading as
+       graphite instead of drifting back to espresso. */
+    --glow-1: oklch(0.72 0.17 68 / 0.22);
+    --glow-2: oklch(0.55 0.06 260 / 0.14);
+    --glow-3: oklch(0.65 0.15 45 / 0.1);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    }
+  body {
+    @apply bg-background text-foreground antialiased;
+    min-width: 320px;
+    text-align: right;
+    }
+  /* Ambient glow wash. Fixed + behind content, so it can never contribute to
+     horizontal overflow (the visual-check script asserts overflow === 0). */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(1100px 700px at 82% -8%, var(--glow-1), transparent 60%),
+      radial-gradient(900px 620px at -10% 30%, var(--glow-2), transparent 55%),
+      radial-gradient(820px 600px at 70% 110%, var(--glow-3), transparent 55%);
+    }
+  button:not(:disabled), [role="button"]:not(:disabled) {
+    cursor: pointer;
+    }
+  html {
+    @apply font-sans;
+    direction: rtl;
+    scroll-behavior: smooth;
+    }
+  ::selection {
+    background: color-mix(in oklab, var(--primary) 30%, transparent);
+    }
+}
+
+@layer utilities {
+  /* Money and every other figure: engineered digits, fixed column width,
+     LTR inside the RTL page. The slight tracking tighten is what makes a
+     column of amounts read as an instrument rather than as prose. */
+  .numeric { font-variant-numeric: tabular-nums; direction: ltr; unicode-bidi: isolate; text-align: right; letter-spacing: -0.01em; }
+  .surface { @apply border border-border/80 bg-card shadow-[0_1px_2px_rgba(9,12,20,0.04),0_8px_24px_rgba(9,12,20,0.04)]; }
+  .focus-ring { @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2; }
+  .pill { border-radius: calc(infinity * 1px); }
+
+  /* The four consolidated KPIs (see DASHBOARD.md — never re-expand to eight
+     cards) render as flat instrument wells, not boxed cards: a tinted recess
+     inside the surface, hairline-free, with state carried by the dot chip.
+     The previous gradient tiles read as a SaaS template, which is exactly
+     the association this product is trying not to have. */
+  .metric-cell {
+    border-radius: var(--radius-md);
+    background: color-mix(in oklab, var(--muted) 55%, transparent);
+    padding: 0.8rem 0.95rem;
+  }
+
+  /* The credit-card visual depicts a physical card — always dark, both
+     themes: graphite metal with an amber glint off the top edge. */
+  .card-visual {
+    background-image:
+      radial-gradient(130% 120% at 85% -20%, oklch(0.55 0.11 70 / 0.35), transparent 55%),
+      linear-gradient(150deg, oklch(0.3 0.02 255), oklch(0.16 0.014 252));
+    color: #fff;
+  }
+  .card-chip {
+    background: linear-gradient(135deg, oklch(0.87 0.09 85), oklch(0.72 0.12 70));
+  }
+  .card-chip > span {
+    border-color: oklch(0.45 0.09 60 / 0.55);
+  }
+}
+
+/* Translucent dark surfaces. Outside @layer so this wins over the bg-card
+   utility that Card sets. No per-card backdrop-filter: with a dozen surfaces
+   on screen it made every scroll frame repaint a blur and the page dragged —
+   at 88% opacity the glow still breathes through without live blurring. */
+.dark .surface {
+  background-color: color-mix(in oklab, var(--card) 88%, transparent);
+  border-color: oklch(0.92 0.02 253 / 9%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05), 0 12px 32px rgb(0 0 0 / 0.4);
+}
+
+.dark .metric-cell {
+  background: oklch(1 0 0 / 0.035);
+}
+
+/* State motion only, 150–250ms, exponential ease-out. The live dot breathes
+   because the data genuinely refreshes every 5s; the screen fade marks a tab
+   change. Both collapse to instant under prefers-reduced-motion. */
+@keyframes live-ring {
+  0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--positive) 45%, transparent); }
+  70% { box-shadow: 0 0 0 6px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+.live-dot {
+  animation: live-ring 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+@keyframes screen-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+.screen-in {
+  animation: screen-in 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[dir="rtl"] :where(input, textarea, [data-slot="select-trigger"], [data-slot="select-content"], [data-slot="dropdown-menu-content"], [data-slot="dialog-content"], [data-slot="alert-dialog-content"]) {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] :where([data-slot="dropdown-menu-item"], [data-slot="select-item"], [data-slot="table-head"], [data-slot="table-cell"]) {
+  text-align: right;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

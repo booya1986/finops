@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "finops-dashboard",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dashboard"],
+      "port": 3737
+    },
+    {
+      "name": "finops-dashboard-alt",
+      "runtimeExecutable": "env",
+      "runtimeArgs": ["FINOPS_DASH_PORT=3747", "npx", "tsx", "src/dashboard/server.ts"],
+      "port": 3747
+    }
+  ]
+}
